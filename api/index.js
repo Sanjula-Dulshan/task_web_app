@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import chalk from "chalk";
 import connectDB from "./config/connectDB.js";
+import UserRoutes from "./src/routes/routes.js";
 dotenv.config();
 
 const PORT = process.env.PORT;
@@ -12,6 +13,7 @@ connectDB();
 //middlewares
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
+app.use("/api", UserRoutes);
 
 app.listen(PORT, () => {
   console.log(
