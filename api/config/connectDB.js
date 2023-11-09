@@ -10,7 +10,6 @@ class DatabaseSingleton {
       this.connect();
       DatabaseSingleton.instance = this;
     }
-    return DatabaseSingleton.instance;
   }
 
   async connect() {
