@@ -1,14 +1,14 @@
 import User from "../models/User.model.js";
 import bcrypt from "bcryptjs";
-import joi from "joi";
+import Joi from "joi";
 import jwt from "jsonwebtoken";
 
 export const Register = async (req, res) => {
   // validate user input
-  const Schema = joi.object({
-    name: joi.string().min(3).max(30).required(),
-    email: joi.string().required().trim(),
-    password: joi.string().min(8).max(30).required(),
+  const Schema = Joi.object({
+    name: Joi.string().min(3).max(30).required(),
+    email: Joi.string().required().trim(),
+    password: Joi.string().min(8).max(30).required(),
   });
 
   const { error } = Schema.validate(req.body);
@@ -37,9 +37,9 @@ export const Register = async (req, res) => {
 
 export const Login = async (req, res) => {
   // validate user input
-  const Schema = joi.object({
-    email: joi.string().required().trim(),
-    password: joi.string().min(8).max(30).required(),
+  const Schema = Joi.object({
+    email: Joi.string().required().trim(),
+    password: Joi.string().min(8).max(30).required(),
   });
 
   const { error } = Schema.validate(req.body);
@@ -55,5 +55,5 @@ export const Login = async (req, res) => {
 
   // create a token and assign it to the header
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.header("auth-token", token).send("Logged in");
+  res.header("auth-token", token).send(user._id);
 };

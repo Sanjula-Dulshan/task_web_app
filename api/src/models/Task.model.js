@@ -3,6 +3,10 @@ import { Schema } from "mongoose";
 
 const TaskSchema = new Schema(
   {
+    userId: {
+      type: String,
+      required: (true, "User ID is required"),
+    },
     title: {
       type: String,
       required: (true, "Title is required"),
@@ -12,7 +16,6 @@ const TaskSchema = new Schema(
 
     done: {
       type: Boolean,
-      required: (true, "Done is required"),
       default: false,
     },
   },
