@@ -1,0 +1,13 @@
+{
+  "header": {
+    "navbar": {
+      "task": "Tasks",
+      "logout": "Logout"
+    }
+  },
+  "task": {
+    "new": "New Task",
+    "edit": "Edit Task",
+    "list": "Task List"
+  }
+}
