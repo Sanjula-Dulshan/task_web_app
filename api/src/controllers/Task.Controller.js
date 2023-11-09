@@ -34,7 +34,7 @@ export const CreateTask = async (req, res) => {
 export const GetTasks = async (req, res) => {
   try {
     // get tasks without __v" field by userID
-    const tasks = await Task.find({ userID: req.params.userId }, { __v: 0 });
+    const tasks = await Task.find({ userId: req.params.userId }, { __v: 0 });
 
     res.send(tasks);
   } catch (err) {
