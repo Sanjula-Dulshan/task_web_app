@@ -1,14 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
 import chalk from "chalk";
-import connectDB from "./config/connectDB.js";
+import dbInstance from "./config/connectDB.js";
 import UserRoutes from "./src/routes/routes.js";
 dotenv.config();
 
 const PORT = process.env.PORT;
 const app = express();
-
-connectDB();
 
 //middlewares
 app.use(express.json({ extended: true }));
