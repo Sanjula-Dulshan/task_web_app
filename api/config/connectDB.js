@@ -3,9 +3,9 @@ import chalk from "chalk";
 import dotenv from "dotenv";
 dotenv.config();
 
-// Make the DB connection a singleton
 class DatabaseSingleton {
   constructor() {
+    // Check if instance already exists
     if (!DatabaseSingleton.instance) {
       this.connect();
       DatabaseSingleton.instance = this;

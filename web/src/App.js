@@ -1,13 +1,16 @@
-import "./App.css";
-
 import { useTranslation } from "react-i18next";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Home from "./components/Home";
 
 function App() {
   const { t } = useTranslation("global");
   return (
-    <div className="App">
-      <h1>{t("task.new")}</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
