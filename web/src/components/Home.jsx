@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Task from "./common/Task";
-import { getAllTask, updateStatus } from "../service/Api/Api";
+import { deleteTask, getAllTask, updateStatus } from "../service/Api/Api";
 
 export default function Home() {
   const [newTaskTitle, setNewTaskTitle] = useState("");
@@ -9,6 +9,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [allTask, setAllTask] = useState([]);
+  const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
   const handleAddNewToDo = () => {};
 
@@ -27,7 +28,18 @@ export default function Home() {
     }
   }, [isLoading]);
 
-  const handleToDoDelete = (index) => {};
+  const handleDelete = async (taskId) => {
+    setIsLoading(true);
+
+    try {
+      console.log("index", taskId);
+      await deleteTask(taskId);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setIsLoading(false);
+  };
 
   const handleComplete = async (taskId) => {
     console.log("index", taskId);
@@ -39,7 +51,6 @@ export default function Home() {
       console.log(error);
     }
 
-    handleToDoDelete(taskId);
     setIsLoading(false);
   };
   return (
@@ -54,7 +65,7 @@ export default function Home() {
               type="text"
               value={newTaskTitle}
               onChange={(e) => setNewTaskTitle(e.target.value)}
-              placeholder="What's the title of your To Do?"
+              placeholder="Title of your Task"
             />
           </div>
           <div className="todo-input-item">
@@ -63,7 +74,7 @@ export default function Home() {
               type="text"
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
-              placeholder="What's the description of your To Do?"
+              placeholder="Description of your Task"
             />
           </div>
           <div className="todo-input-item">
@@ -98,6 +109,7 @@ export default function Home() {
               <Task
                 item={item}
                 handleComplete={handleComplete}
+                handleDelete={handleDelete}
                 isCompleted={isCompletedScreen}
               />
             </div>

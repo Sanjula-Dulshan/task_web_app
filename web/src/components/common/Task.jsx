@@ -1,31 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
 
-export default function Task({ item, handleComplete, isCompleted }) {
-  console.log(isCompleted);
-  return !isCompleted ? (
+export default function Task({
+  item,
+  handleComplete,
+  handleDelete,
+  isCompleted,
+}) {
+  const isDone = item?.done;
+
+  const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+
+  const confirmDelete = (taskId) => {
+    handleDelete(taskId);
+    setDeleteConfirmationOpen(false);
+  };
+
+  return (
     <>
-      {!item?.done ? (
+      {!isCompleted && !isDone && (
         <div className="todo-list-item">
           <div>
             <h3>{item?.title}</h3>
             <p>{item?.description}</p>
           </div>
           <div>
-            <AiOutlineDelete title="Delete?" className="icon" />
+            <AiOutlineDelete
+              title="Delete?"
+              className="icon"
+              onClick={() => setDeleteConfirmationOpen(true)}
+            />
             <BsCheckLg
               title="Completed?"
-              className=" check-icon"
-              onClick={() => handleComplete(item._id)}
+              className="check-icon"
+              onClick={() => handleComplete(item?._id)}
             />
           </div>
         </div>
-      ) : null}
-    </>
-  ) : (
-    <>
-      {item?.done ? (
+      )}
+
+      {isCompleted && isDone && (
         <div className="todo-list-item">
           <div>
             <h3>{item?.title}</h3>
@@ -33,10 +48,24 @@ export default function Task({ item, handleComplete, isCompleted }) {
             <p>Completed at: {item?.updatedAt} </p>
           </div>
           <div>
-            <AiOutlineDelete title="Delete?" className="icon" />
+            <AiOutlineDelete
+              title="Delete?"
+              className="icon"
+              onClick={() => setDeleteConfirmationOpen(true)}
+            />
           </div>
         </div>
-      ) : null}
+      )}
+
+      {isDeleteConfirmationOpen && (
+        <div className="delete-confirmation">
+          <p>Are you sure you want to delete this task?</p>
+          <button onClick={() => setDeleteConfirmationOpen(false)}>
+            Cancel
+          </button>
+          <button onClick={() => confirmDelete(item?._id)}>Confirm</button>
+        </div>
+      )}
     </>
   );
 }

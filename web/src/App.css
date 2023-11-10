@@ -134,3 +134,92 @@ h1 {
 .check-icon:hover {
   color: #e68a00;
 }
+
+.delete-confirmation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #7a7a7a;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+}
+
+.delete-confirmation p {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.delete-confirmation button {
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-confirmation button:hover {
+  background-color: #d9363e;
+}
+
+.delete-confirmation button:last-child {
+  background-color: #ff9900;
+  color: #fff;
+}
+
+.delete-confirmation button:last-child:hover {
+  background-color: #e68a00;
+}
+
+@media screen and (max-width: 700px) {
+  .todo-wrapper {
+    width: 90%;
+  }
+
+  .todo-list-item h3 {
+    font-size: 18px;
+  }
+
+  .icon,
+  .check-icon {
+    font-size: 18px;
+    margin-top: 8px;
+  }
+
+  .todo-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgb(77, 77, 77);
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 15px;
+  }
+
+  .todo-input-item {
+    margin-right: 0;
+    margin-bottom: 15px;
+    padding-right: 15px;
+
+    width: 100%;
+  }
+
+  .todo-input-item input {
+    width: 100%;
+  }
+
+  .primary-btn {
+    width: 50%;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
