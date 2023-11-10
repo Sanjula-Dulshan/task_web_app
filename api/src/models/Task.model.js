@@ -12,6 +12,13 @@ const TaskSchema = new Schema(
       required: (true, "Title is required"),
       min: 3,
       max: 30,
+      trim: true,
+    },
+
+    description: {
+      type: String,
+      required: (true, "Description is required"),
+      trim: true,
     },
 
     done: {

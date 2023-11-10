@@ -7,6 +7,7 @@ export const CreateTask = async (req, res) => {
   const Schema = Joi.object({
     userId: Joi.string().required(),
     title: Joi.string().min(3).max(30).required(),
+    description: Joi.string().required(),
     done: Joi.boolean(),
   });
 
@@ -17,6 +18,7 @@ export const CreateTask = async (req, res) => {
   const task = new Task({
     userId: req.body.userId,
     title: req.body.title,
+    description: req.body.description,
     done: req.body.done,
   });
 
@@ -63,6 +65,7 @@ export const GetTask = async (req, res) => {
 export const UpdateStatus = async (req, res) => {
   try {
     const taskId = req.params.id;
+    console.log(taskId);
     const updatedTask = await Task.findByIdAndUpdate(
       taskId,
       { $set: { done: true } },
