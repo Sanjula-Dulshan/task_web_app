@@ -3,6 +3,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 
 export default function Task({
   item,
@@ -76,3 +77,10 @@ export default function Task({
     </>
   );
 }
+
+Task.propTypes = {
+  item: PropTypes.object.isRequired,
+  handleComplete: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  isCompleted: PropTypes.bool.isRequired,
+};

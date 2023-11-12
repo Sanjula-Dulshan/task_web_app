@@ -42,7 +42,7 @@ export default function Home() {
   const validateFields = () => {
     // Check if required fields are filled
     if (!inputs.title || !inputs.description) {
-      alert("All fields are required");
+      alert(t("alert.error.required"));
       return false;
     }
 
@@ -57,7 +57,7 @@ export default function Home() {
 
     const response = await createTask(inputs);
     if (response?.status === 200) {
-      alert("Task added successfully");
+      alert(t("alert.success.task-added"));
       setInputs({});
     } else {
       alert(response.response.data);

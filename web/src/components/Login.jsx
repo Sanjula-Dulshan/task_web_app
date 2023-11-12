@@ -17,14 +17,14 @@ const Login = () => {
   const validateFields = () => {
     // Check if required fields are filled
     if (!inputs.email || !inputs.password) {
-      alert("All fields are required");
+      alert(t("alert.error.required"));
       return false;
     }
 
     // Validate email pattern
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(inputs.email)) {
-      alert("Invalid email address");
+      alert(t("alert.error.email"));
       return false;
     }
 

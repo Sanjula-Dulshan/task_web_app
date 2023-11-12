@@ -46,23 +46,6 @@ export const GetTasks = async (req, res) => {
   }
 };
 
-// Get a single task
-export const GetTask = async (req, res) => {
-  try {
-    // get task without __v" field
-    const task = await Task.findById(req.params.id, { __v: 0 });
-
-    if (!task) {
-      // Handle the case where the task with the given ID is not found
-      return res.status(404).send("Task not found");
-    }
-
-    res.send(task);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
-};
-
 // Update task status
 export const UpdateStatus = async (req, res) => {
   try {

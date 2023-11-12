@@ -41,5 +41,16 @@
     "sign-up-btn": "Sign Up",
     "login-txt": "Already have an account? Login ",
     "login-link": "here"
+  },
+  "alert": {
+    "error": {
+      "required": "All fields are required",
+      "email": "Invalid email address",
+      "confirm-password": "Password and confirm password must be same"
+    },
+    "success": {
+      "task-added": "Task added successfully",
+      "user-register": "User registered successfully"
+    }
   }
 }

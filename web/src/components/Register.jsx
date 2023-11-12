@@ -22,14 +22,14 @@ const Register = () => {
       !inputs.password ||
       !inputs.cPassword
     ) {
-      alert("All fields are required");
+      alert(t("alert.error.required"));
       return false;
     }
 
     // Validate email pattern
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(inputs.email)) {
-      alert("Invalid email address");
+      alert(t("alert.error.email"));
       return false;
     }
 
@@ -43,7 +43,7 @@ const Register = () => {
 
     //check password and confirm password
     if (inputs.password !== inputs.cPassword) {
-      alert("Password and Confirm Password must be same");
+      alert(t("alert.error.confirm-password"));
       return;
     }
 
@@ -52,7 +52,7 @@ const Register = () => {
     const response = await register(inputsWithoutCPassword);
 
     if (response?.status === 200) {
-      alert("User registered successfully");
+      alert(t("alert.success.user-register"));
       setInputs({});
       navigate("/");
     } else {
