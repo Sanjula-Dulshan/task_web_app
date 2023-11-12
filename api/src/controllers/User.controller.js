@@ -55,5 +55,5 @@ export const Login = async (req, res) => {
 
   // create a token and assign it to the header
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.header("auth-token", token).send(user._id);
+  res.send({ token: token, userId: user._id });
 };

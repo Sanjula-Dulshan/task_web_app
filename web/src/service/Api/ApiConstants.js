@@ -1,5 +1,5 @@
 import { API_URL } from "../../Config";
 
-export const GET_ALL_TASK = `${API_URL}/api/tasks`;
-export const UPDATE_STATUS = `${API_URL}/api/tasks`;
-export const DELETE_TASK = `${API_URL}/api/tasks`;
+export const TASK_URL = `${API_URL}/api/tasks`;
+export const LOGIN = `${API_URL}/api/login`;
+export const REGISTER = `${API_URL}/api/register`;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
+import moment from "moment";
 
 export default function Task({
   item,
@@ -20,7 +21,7 @@ export default function Task({
   return (
     <>
       {!isCompleted && !isDone && (
-        <div className="todo-list-item">
+        <div className="task-list-item">
           <div>
             <h3>{item?.title}</h3>
             <p>{item?.description}</p>
@@ -41,11 +42,14 @@ export default function Task({
       )}
 
       {isCompleted && isDone && (
-        <div className="todo-list-item">
+        <div className="task-list-item">
           <div>
             <h3>{item?.title}</h3>
             <p>{item?.description}</p>
-            <p>Completed at: {item?.updatedAt} </p>
+            <p>
+              Completed at:
+              {moment(item?.updatedAt).format("YYYY/MM/DD h:mm A")}
+            </p>
           </div>
           <div>
             <AiOutlineDelete

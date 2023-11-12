@@ -12,6 +12,13 @@ const app = express();
 
 //middlewares
 app.use(cors());
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, auth-token"
+  );
+  next();
+});
 
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));

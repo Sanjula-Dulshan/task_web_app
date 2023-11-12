@@ -1,55 +1,99 @@
 import axios from "axios";
-import { DELETE_TASK, GET_ALL_TASK, UPDATE_STATUS } from "./ApiConstants";
-const userId = "654bdb0af039ffd03fb00829";
+import { LOGIN, REGISTER, TASK_URL } from "./ApiConstants";
 
-export const getAllTask = async () => {
-  console.log(GET_ALL_TASK);
+export const login = async (user) => {
+  try {
+    const response = await axios.post(LOGIN, user);
 
-  //send auth token in header
-  const response = await axios.get(GET_ALL_TASK + `/${userId}`, {
-    headers: {
-      "Content-Type": "application/json",
-      "auth-token":
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRiZGIwYWYwMzlmZmQwM2ZiMDA4MjkiLCJpYXQiOjE2OTk1MTI1MjF9.OgpPRmjICMYNML3Hjd-CGCTFdThWOSn_sDdhWQQ-Y7k",
-    },
-  });
-  return response;
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };
 
-export const updateStatus = async (id) => {
-  console.log(UPDATE_STATUS + `/${id}`);
-  const response = await axios
-    .put(
-      UPDATE_STATUS + `/${id}`,
+export const register = async (user) => {
+  try {
+    const response = await axios.post(REGISTER, user);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const createTask = async (task) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.post(TASK_URL, task, {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+export const getAllTask = async () => {
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  console.log(userId);
+
+  try {
+    const response = await axios.get(TASK_URL + `/${userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": token,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+export const updateStatus = async (taskId) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await axios.put(
+      TASK_URL + `/${taskId}`,
       {},
       {
         headers: {
           "Content-Type": "application/json",
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRiZGIwYWYwMzlmZmQwM2ZiMDA4MjkiLCJpYXQiOjE2OTk1MTI1MjF9.OgpPRmjICMYNML3Hjd-CGCTFdThWOSn_sDdhWQQ-Y7k",
+          "auth-token": token,
         },
       }
-    )
-    .catch((err) => {
-      console.log(err);
-    });
-  console.log(response);
-  return response;
+    );
+    console.log("res", response);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };
 
 export const deleteTask = async (id) => {
-  console.log(DELETE_TASK + `/${id}`);
-  const response = await axios
-    .delete(UPDATE_STATUS + `/${id}`, {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await axios.delete(TASK_URL + `/${id}`, {
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRiZGIwYWYwMzlmZmQwM2ZiMDA4MjkiLCJpYXQiOjE2OTk1MTI1MjF9.OgpPRmjICMYNML3Hjd-CGCTFdThWOSn_sDdhWQQ-Y7k",
+        "auth-token": token,
       },
-    })
-    .catch((err) => {
-      console.log(err);
     });
-  console.log(response);
-  return response;
+
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 };

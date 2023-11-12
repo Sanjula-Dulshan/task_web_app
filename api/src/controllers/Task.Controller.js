@@ -10,8 +10,8 @@ export const CreateTask = async (req, res) => {
     description: Joi.string().required(),
     done: Joi.boolean(),
   });
-
   console.log(req.body);
+
   const { error } = Schema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -35,8 +35,10 @@ export const CreateTask = async (req, res) => {
 // Get all tasks
 export const GetTasks = async (req, res) => {
   try {
-    // get tasks without __v" field by userID
-    const tasks = await Task.find({ userId: req.params.userId }, { __v: 0 });
+    const tasks = await Task.find(
+      { userId: req.params.userId },
+      { __v: 0 }
+    ).sort({ updatedAt: -1 });
 
     res.send(tasks);
   } catch (err) {

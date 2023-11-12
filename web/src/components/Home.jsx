@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Task from "./common/Task";
-import { deleteTask, getAllTask, updateStatus } from "../service/Api/Api";
+import {
+  createTask,
+  deleteTask,
+  getAllTask,
+  updateStatus,
+} from "../service/Api/Api";
+import Header from "./common/Header";
 
 export default function Home() {
-  const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [newDescription, setNewDescription] = useState("");
+  const [inputs, setInputs] = useState({});
   const [isCompletedScreen, setIsCompletedScreen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [allTask, setAllTask] = useState([]);
-  const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
-
-  const handleAddNewToDo = () => {};
 
   useEffect(() => {
+    const userId = localStorage.getItem("userId");
+
+    setInputs((inputs) => ({ ...inputs, userId: userId }));
     try {
       getAllTask()
         .then((res) => {
-          console.log(res.data);
           setAllTask(res.data);
         })
         .catch((err) => {
@@ -28,12 +31,48 @@ export default function Home() {
     }
   }, [isLoading]);
 
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs((inputs) => ({ ...inputs, [name]: value }));
+  };
+
+  const validateFields = () => {
+    // Check if required fields are filled
+    if (!inputs.title || !inputs.description) {
+      alert("All fields are required");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleAddNewTask = async () => {
+    if (!validateFields()) {
+      return;
+    }
+    setIsLoading(true);
+
+    const response = await createTask(inputs);
+    if (response?.status === 200) {
+      alert("Task added successfully");
+      setInputs({});
+    } else {
+      alert(response.response.data);
+    }
+
+    setIsLoading(false);
+  };
+
   const handleDelete = async (taskId) => {
     setIsLoading(true);
 
     try {
-      console.log("index", taskId);
-      await deleteTask(taskId);
+      const response = await deleteTask(taskId);
+
+      if (!response?.status === 200) {
+        alert(response.response.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +85,13 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      await updateStatus(taskId);
+      const response = await updateStatus(taskId);
+
+      if (response?.status === 200) {
+        console.log(response.data);
+      } else {
+        alert(response.response.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -55,33 +100,36 @@ export default function Home() {
   };
   return (
     <div>
+      <Header />
       <h1>My Task</h1>
 
-      <div className="todo-wrapper">
-        <div className="todo-input">
-          <div className="todo-input-item">
+      <div className="task-wrapper">
+        <div className="task-input">
+          <div className="task-input-item">
             <label>Title:</label>
             <input
               type="text"
-              value={newTaskTitle}
-              onChange={(e) => setNewTaskTitle(e.target.value)}
+              name="title"
+              value={inputs.title || ""}
+              onChange={handleChange}
               placeholder="Title of your Task"
             />
           </div>
-          <div className="todo-input-item">
+          <div className="task-input-item">
             <label>Description:</label>
             <input
               type="text"
-              value={newDescription}
-              onChange={(e) => setNewDescription(e.target.value)}
+              name="description"
+              value={inputs.description || ""}
+              onChange={handleChange}
               placeholder="Description of your Task"
             />
           </div>
-          <div className="todo-input-item">
+          <div className="task-input-item">
             <button
               className="primary-btn"
               type="button"
-              onClick={handleAddNewToDo}
+              onClick={handleAddNewTask}
             >
               Add
             </button>
@@ -103,7 +151,7 @@ export default function Home() {
             Completed
           </button>
         </div>
-        <div className="todo-list">
+        <div className="task-list">
           {allTask.map((item, index) => (
             <div key={index}>
               <Task
