@@ -7,16 +7,18 @@ export const CreateTask = async (req, res) => {
   const Schema = Joi.object({
     userId: Joi.string().required(),
     title: Joi.string().min(3).max(30).required(),
+    description: Joi.string().required(),
     done: Joi.boolean(),
   });
-
   console.log(req.body);
+
   const { error } = Schema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const task = new Task({
     userId: req.body.userId,
     title: req.body.title,
+    description: req.body.description,
     done: req.body.done,
   });
 
@@ -33,8 +35,10 @@ export const CreateTask = async (req, res) => {
 // Get all tasks
 export const GetTasks = async (req, res) => {
   try {
-    // get tasks without __v" field by userID
-    const tasks = await Task.find({ userId: req.params.userId }, { __v: 0 });
+    const tasks = await Task.find(
+      { userId: req.params.userId },
+      { __v: 0 }
+    ).sort({ updatedAt: -1 });
 
     res.send(tasks);
   } catch (err) {
@@ -63,6 +67,7 @@ export const GetTask = async (req, res) => {
 export const UpdateStatus = async (req, res) => {
   try {
     const taskId = req.params.id;
+    console.log(taskId);
     const updatedTask = await Task.findByIdAndUpdate(
       taskId,
       { $set: { done: true } },

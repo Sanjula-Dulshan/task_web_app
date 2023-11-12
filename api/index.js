@@ -1,16 +1,25 @@
 import express from "express";
 import dotenv from "dotenv";
 import chalk from "chalk";
-import connectDB from "./config/connectDB.js";
+import dbInstance from "./config/connectDB.js";
 import UserRoutes from "./src/routes/routes.js";
+import cors from "cors";
+
 dotenv.config();
 
 const PORT = process.env.PORT;
 const app = express();
 
-connectDB();
-
 //middlewares
+app.use(cors());
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, auth-token"
+  );
+  next();
+});
+
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", UserRoutes);
