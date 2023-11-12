@@ -6,7 +6,7 @@ import {
   GetTasks,
   UpdateStatus,
 } from "../controllers/Task.Controller.js";
-import { Auth } from "../middleware/auth.js";
+import { Auth } from "../middleware/Auth.js";
 const router = express.Router();
 
 // User routes
