@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../service/Api/Api";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -51,32 +53,32 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>{t("login.title")}</h1>
       <div className="login-wrapper">
         <div className="login-form">
           <div className="login-input-item">
-            <label>Email:</label>
+            <label>{t("login.email")}</label>
             <input
               type="email"
               name="email"
               value={inputs.email || ""}
               onChange={handleChange}
-              placeholder="Enter your Email"
+              placeholder={t("login.email-placeholder")}
             />
           </div>
           <div className="login-input-item">
-            <label>Password:</label>
+            <label>{t("login.password")}</label>
             <input
               type="password"
               name="password"
               value={inputs.password || ""}
               onChange={handleChange}
-              placeholder="Enter your password"
+              placeholder={t("login.password-placeholder")}
             />
           </div>
           <div className="login-input-item login-btn-container ">
             <button className="login-btn" onClick={handleLogin}>
-              Login
+              {t("login.login-btn")}{" "}
             </button>
             <p
               style={{
@@ -85,9 +87,9 @@ const Login = () => {
                 fontSize: "14px",
               }}
             >
-              If you haven't an account, sign up{" "}
+              {t("login.sign-up-txt")}
               <Link to="/register" className="sign-up-txt">
-                here
+                {t("login.sign-up-link")}
               </Link>
               .
             </p>

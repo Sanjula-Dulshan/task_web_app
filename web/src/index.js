@@ -12,7 +12,7 @@ i18n.init({
   lng: "en",
   resources: {
     en: {
-      global: language_en,
+      translation: language_en,
     },
   },
 });

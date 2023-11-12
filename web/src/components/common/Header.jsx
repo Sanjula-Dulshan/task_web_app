@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const { t } = useTranslation();
+
   const handleLogout = () => {
     console.log("logout");
     localStorage.clear();
@@ -12,7 +15,7 @@ function Header() {
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <Link className="navbar-brand" href="/home">
-          Task App
+          {t("navbar.app-name")}
         </Link>
         <button
           className="navbar-toggler"
@@ -33,13 +36,13 @@ function Header() {
                 aria-current="page"
                 to={"/home"}
               >
-                Home
+                {t("navbar.home")}
               </Link>
             </li>
           </ul>
 
           <Link className="logout" onClick={handleLogout}>
-            Log Out
+            {t("navbar.logout")}
           </Link>
         </div>
       </div>

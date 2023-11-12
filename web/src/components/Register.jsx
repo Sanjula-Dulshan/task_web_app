@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../service/Api/Api";
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
   const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -60,54 +62,54 @@ const Register = () => {
 
   return (
     <div>
-      <h1>Register</h1>
+      <h1>{t("sign-up.title")}</h1>
       <div className="login-wrapper">
         <div className="login-form">
           <div className="login-input-item">
-            <label>Name:</label>
+            <label>{t("sign-up.name")}</label>
             <input
               type="text"
               name="name"
               value={inputs.name || ""}
               onChange={handleChange}
-              placeholder="Enter your Name"
+              placeholder={t("sign-up.name-placeholder")}
               required
             />
           </div>
           <div className="login-input-item">
-            <label>Email:</label>
+            <label>{t("sign-up.email")}</label>
             <input
               type="email"
               name="email"
               value={inputs.email || ""}
               onChange={handleChange}
-              placeholder="Enter your Email"
+              placeholder={t("sign-up.email-placeholder")}
             />
           </div>
           <div className="login-input-item">
-            <label>Password:</label>
+            <label>{t("sign-up.password")}</label>
             <input
               type="password"
               name="password"
               value={inputs.password || ""}
               onChange={handleChange}
-              placeholder="Enter your password"
+              placeholder={t("sign-up.password-placeholder")}
             />
           </div>
 
           <div className="login-input-item">
-            <label>Confirm Password:</label>
+            <label>{t("sign-up.confirm-password")}</label>
             <input
               type="password"
               name="cPassword"
               value={inputs.cPassword || ""}
               onChange={handleChange}
-              placeholder="Enter your password again"
+              placeholder={t("sign-up.confirm-password-placeholder")}
             />
           </div>
           <div className="login-input-item login-btn-container ">
             <button className="login-btn" onClick={handleSignUp}>
-              Register
+              {t("sign-up.sign-up-btn")}
             </button>
             <p
               style={{
@@ -116,9 +118,9 @@ const Register = () => {
                 fontSize: "14px",
               }}
             >
-              Already have an account, sign in{" "}
+              {t("sign-up.login-txt")}
               <Link to="/" className="sign-up-txt">
-                here
+                {t("sign-up.login-link")}
               </Link>
               .
             </p>

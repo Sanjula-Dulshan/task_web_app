@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 export default function Task({
   item,
@@ -9,13 +10,15 @@ export default function Task({
   handleDelete,
   isCompleted,
 }) {
-  const isDone = item?.done;
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
+  const { t } = useTranslation();
 
-  const [isDeleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+  const isDone = item?.done;
 
   const confirmDelete = (taskId) => {
     handleDelete(taskId);
-    setDeleteConfirmationOpen(false);
+    setIsDeleteConfirmationOpen(false);
   };
 
   return (
@@ -30,7 +33,7 @@ export default function Task({
             <AiOutlineDelete
               title="Delete?"
               className="icon"
-              onClick={() => setDeleteConfirmationOpen(true)}
+              onClick={() => setIsDeleteConfirmationOpen(true)}
             />
             <BsCheckLg
               title="Completed?"
@@ -47,7 +50,7 @@ export default function Task({
             <h3>{item?.title}</h3>
             <p>{item?.description}</p>
             <p>
-              Completed at:
+              {t("task.completed-at")}
               {moment(item?.updatedAt).format("YYYY/MM/DD h:mm A")}
             </p>
           </div>
@@ -55,7 +58,7 @@ export default function Task({
             <AiOutlineDelete
               title="Delete?"
               className="icon"
-              onClick={() => setDeleteConfirmationOpen(true)}
+              onClick={() => setIsDeleteConfirmationOpen(true)}
             />
           </div>
         </div>
@@ -64,7 +67,7 @@ export default function Task({
       {isDeleteConfirmationOpen && (
         <div className="delete-confirmation">
           <p>Are you sure you want to delete this task?</p>
-          <button onClick={() => setDeleteConfirmationOpen(false)}>
+          <button onClick={() => setIsDeleteConfirmationOpen(false)}>
             Cancel
           </button>
           <button onClick={() => confirmDelete(item?._id)}>Confirm</button>

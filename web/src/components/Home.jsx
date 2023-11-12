@@ -7,12 +7,14 @@ import {
   updateStatus,
 } from "../service/Api/Api";
 import Header from "./common/Header";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
   const [inputs, setInputs] = useState({});
   const [isCompletedScreen, setIsCompletedScreen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [allTask, setAllTask] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
@@ -101,7 +103,7 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <h1>My Task</h1>
+      <h1>{t("task.title")}</h1>
 
       <div className="task-wrapper">
         <div className="task-input">
@@ -131,7 +133,7 @@ export default function Home() {
               type="button"
               onClick={handleAddNewTask}
             >
-              Add
+              {t("task.add-new.add-btn")}
             </button>
           </div>
         </div>
@@ -142,13 +144,13 @@ export default function Home() {
             }`}
             onClick={() => setIsCompletedScreen(false)}
           >
-            To Do
+            {t("task.to-do")}
           </button>
           <button
             className={`secondaryBtn ${isCompletedScreen === true && "active"}`}
             onClick={() => setIsCompletedScreen(true)}
           >
-            Completed
+            {t("task.completed")}
           </button>
         </div>
         <div className="task-list">
