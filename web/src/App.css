@@ -12,6 +12,14 @@ h1 {
   background-color: #ff9900 !important;
 }
 
+.loader {
+  background-color: #353434;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .task-wrapper {
   background-color: #353434;
   padding: 2%;

@@ -14,7 +14,6 @@ class DatabaseSingleton {
 
   async connect() {
     try {
-      console.log("process.env.DATABASE>>>", process.env.DATABASE);
       await mongoose.connect(process.env.DATABASE);
       console.log(
         chalk.blue.bold("[Server]") +
