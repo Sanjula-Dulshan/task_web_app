@@ -50,7 +50,9 @@
     },
     "success": {
       "task-added": "Task added successfully",
-      "user-register": "User registered successfully"
+      "user-register": "User registered successfully",
+      "task-completed": "Task completed successfully",
+      "task-deleted": "Task deleted successfully"
     }
   }
 }

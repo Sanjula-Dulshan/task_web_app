@@ -7,7 +7,6 @@ export const login = async (user) => {
 
     return response;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -18,7 +17,6 @@ export const register = async (user) => {
 
     return response;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -34,14 +32,12 @@ export const createTask = async (task) => {
     });
     return response;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
 export const getAllTask = async () => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
-  console.log(userId);
 
   try {
     const response = await axios.get(TASK_URL + `/${userId}`, {
@@ -52,7 +48,6 @@ export const getAllTask = async () => {
     });
     return response;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -71,10 +66,8 @@ export const updateStatus = async (taskId) => {
         },
       }
     );
-    console.log("res", response);
     return response;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };
@@ -90,10 +83,8 @@ export const deleteTask = async (id) => {
       },
     });
 
-    console.log(response);
     return response;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };

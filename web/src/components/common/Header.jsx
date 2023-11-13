@@ -6,9 +6,7 @@ function Header() {
   const { t } = useTranslation();
 
   const handleLogout = () => {
-    console.log("logout");
     localStorage.clear();
-    console.log(localStorage.getItem("token"));
     window.location.href = "/";
   };
   return (

@@ -8,6 +8,7 @@ import {
 } from "../service/Api/Api";
 import Header from "./common/Header";
 import { useTranslation } from "react-i18next";
+import { NOTIFICATION_TYPE, notification } from "./common/Notification";
 
 export default function Home() {
   const [inputs, setInputs] = useState({});
@@ -42,7 +43,7 @@ export default function Home() {
   const validateFields = () => {
     // Check if required fields are filled
     if (!inputs.title || !inputs.description) {
-      alert(t("alert.error.required"));
+      notification(t("alert.error.required"), NOTIFICATION_TYPE.ERROR);
       return false;
     }
 
@@ -57,10 +58,10 @@ export default function Home() {
 
     const response = await createTask(inputs);
     if (response?.status === 200) {
-      alert(t("alert.success.task-added"));
+      notification(t("alert.success.task-added"), NOTIFICATION_TYPE.SUCCESS);
       setInputs({});
     } else {
-      alert(response.response.data);
+      notification(response.response.data, NOTIFICATION_TYPE.ERROR);
     }
 
     setIsLoading(false);
@@ -72,8 +73,13 @@ export default function Home() {
     try {
       const response = await deleteTask(taskId);
 
-      if (!response?.status === 200) {
-        alert(response.response.data);
+      if (response?.status === 200) {
+        notification(
+          t("alert.success.task-deleted"),
+          NOTIFICATION_TYPE.SUCCESS
+        );
+      } else {
+        notification(response.response.data, NOTIFICATION_TYPE.ERROR);
       }
     } catch (error) {
       console.log(error);
@@ -83,16 +89,18 @@ export default function Home() {
   };
 
   const handleComplete = async (taskId) => {
-    console.log("index", taskId);
     setIsLoading(true);
 
     try {
       const response = await updateStatus(taskId);
 
       if (response?.status === 200) {
-        console.log(response.data);
+        notification(
+          t("alert.success.task-completed"),
+          NOTIFICATION_TYPE.SUCCESS
+        );
       } else {
-        alert(response.response.data);
+        notification(response.response.data, NOTIFICATION_TYPE.ERROR);
       }
     } catch (error) {
       console.log(error);

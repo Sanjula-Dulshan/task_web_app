@@ -10,7 +10,6 @@ export const CreateTask = async (req, res) => {
     description: Joi.string().required(),
     done: Joi.boolean(),
   });
-  console.log(req.body);
 
   const { error } = Schema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -21,8 +20,6 @@ export const CreateTask = async (req, res) => {
     description: req.body.description,
     done: req.body.done,
   });
-
-  console.log(task);
 
   try {
     const savedTask = await task.save();
@@ -50,7 +47,6 @@ export const GetTasks = async (req, res) => {
 export const UpdateStatus = async (req, res) => {
   try {
     const taskId = req.params.id;
-    console.log(taskId);
     const updatedTask = await Task.findByIdAndUpdate(
       taskId,
       { $set: { done: true } },
